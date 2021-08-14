@@ -1,0 +1,403 @@
+    1  yum -y update
+    2  vim /etc/vimrc
+    3  adduser siberianhusky
+    4  passwd siberianhusky
+    5  who
+    6  su
+    7  passwd siberianhusky
+    8  vi /etc/group
+    9  pwd
+   10  vi foo.txt
+   11  mv foo.txt foo.c
+   12  ls
+   13  gcc foo.c
+   14  ./a.out
+   15  vi foo.txt
+   16  vi foo.c
+   17  gcc foo.c
+   18  ./a.out
+   19  ls
+   20  vi foo.c
+   21  vi .vimrc
+   22  vi foo.c
+   23  ls
+   24  ls -a
+   25  vi .vimrc
+   26  ls
+   27  ls -a
+   28  la
+   29  vi .bashrc
+   30  source .bashrc
+   31  la
+   32  vi .chsrc
+   33  vi .cshrc
+   34  figure
+   35  fingure
+   36  tcsh
+   37  fingure 
+   38  figure
+   39  finger
+   40  echo $SHELL
+   41  yum update
+   42  passwd siberianhusky
+   43  exit
+   44  usermod -aG wheel siberianhusky
+   45  visudo
+   46  exit
+   47  usermod -aG wheel siberianhusky
+   48  visudo
+   49  cp /etc/ssh/sshd_config.old
+   50  cp /etc/ssh/sshd_config / /etc/ssh/sshd_config.old
+   51  cp /etc/ssh/sshd_config /etc/ssh/sshd_config.old
+   52  vim /etc/ssh/sshd_config
+   53  systemctl restart sshd
+   54  systemctl status sshd.service
+   55  sudo sshd -t
+   56  vim /etc/ssh/sshd_config
+   57  systemctl restart sshd
+   58  git --version
+   59  yum -y remove git
+   60  git --version
+   61  yum -y install https://repo.ius-release-el7.rpm
+   62  yum -y install libsecret pcre2
+   63  yum install git --enablerepo=ius --disablerepo=base,epel,extras,updates
+   64  yum -y install git --enablerepo=ius --disablerepo=base,epel,extras,updates
+   65  yum -y install https://repo.ius.io/ius-release-el7.rpm
+   66  yum -y install libsecret pcre2
+   67  yum install git --enablerepo=ius --disablerepo=base,epel,extras,updates
+   68  git --version
+   69  httpd -v
+   70  yum list httpd
+   71  yum -y install nghttp2 brotli http24u apr15u-util-devel --enablerepo=epel
+   72  yum -y install httpd httpd-devel mod_ssl --enablerepo=ius --disablerepo=base,extras,updates
+   73  vi /etc/yum.repos.epel.repo
+   74  vi /etc/yum.repos.d/epel.repo
+   75  vi /etc/yum.repos.d/ius.repo
+   76  --skip-broken to work around the problem
+   77  yum --enablerepo=epel -y install nghttp2
+   78  yum -y install mailcap
+   79  systemctl stop httpd
+   80  yum remove httpd
+   81  yum remove httpd*
+   82  yum --disablerepo=base, epel,extras,updates --enablerepo=ius -y install httpd
+   83  yum --disablerepo=base,epel,extras,updates --enablerepo=ius -y install httpd
+   84  yum -y install openldap-devel expat-devel libdb-devel
+   85  yum --disablerepo=base,extras,updates --enablerepo=ius -y install httpd
+   86  httpd -v
+   87  systemctl start httpd
+   88  ps ax | grep httpd
+   89  systemctl enable httpd
+   90  vim /etc/httpd/conf.d/photocard.conf
+   91  > /etc/httpd/conf.d/autoindex.conf
+   92  > /etc/httpd/conf.d/welcome.conf
+   93  httpd -t
+   94  vim /etc/httpd/conf.d/photocard.conf
+   95  httpd -t
+   96  vim /etc/httpd/conf.d/photocard.conf
+   97  quit
+   98  exit;
+   99  yum -y install http:rpms.famillecollet.com/enterprise/remi-release-7.rpm
+  100  yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+  101  yum -y install php php-mbstring php-mysqli --enablerepo=remi,remi-php74
+  102  php -v
+  103  cp /etc/php.ini /etc/php.ini.old
+  104  vim /etc/php.ini
+  105  systemctl restart httpd
+  106  systemctl status httpd.service
+  107  -l
+  108  mysql --version
+  109  yum -y remmove mariadb-libs
+  110  yum -y remove mariadb-libs
+  111  yum -y install http://dev.mysql.com/get/mysql57--community-release-el7-7.noarch.rpm
+  112  yum -y install http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+  113  yum -y install mysql-community-server
+  114  mysql --version
+  115  systemctl start mysqld
+  116  systemctl enable mysqld
+  117  cat /var/log/mysqld.log | grep root
+  118  mysql_secure_installation -p
+  119  cp /etc/my.conf /etc/my.conf.old
+  120  cp /etc/my.cnf /etc/my.cnf.old
+  121  vim /etc/my.cnf
+  122  systemctl restart mysqld
+  123  mysql -u root -p
+  124  vim /etc/httpd/conf.d/photocard.conf
+  125  systemctl restart httpd
+  126  systemctl status httpd
+  127  systemctl start httpd
+  128  systemctl stop httpd
+  129  systemctl status httpd
+  130  apachectl configtest
+  131  vim /etc/httpd/conf.d/photocard.conf
+  132  cd /etc/httpd/conf.d/
+  133  ls
+  134  mv photocard.conf photocard.conf.back
+  135  apachectl configtest
+  136  systemctl start httpd
+  137  ls
+  138  cd ..
+  139  ls
+  140  cd conf
+  141  ls
+  142  vi httpd.conf 
+  143  pwd
+  144  vi httpd.conf 
+  145  cd /var/www
+  146  ls
+  147  ln
+  148  ln --help
+  149  ln -s /home/siberianhusky/projects/postcard/public postcard
+  150  ll
+  151  ls 
+  152  cd postcard/
+  153  pwd
+  154  ls
+  155  cd
+  156  cd /etc/httpd/conf.d
+  157  ls
+  158  vi vhost.conf
+  159  apachectl configtest
+  160  systemctl restart httpd
+  161  vi vhost.conf
+  162  vi /etc/group
+  163  systemctl restart httpd
+  164  cd /var/log/httpd
+  165  ls
+  166  tail -f error_log 
+  167  ls
+  168  /var/www
+  169  ll
+  170  cd /var/www
+  171  ls
+  172  ll
+  173  vi /etc/httpd/conf.d/vhost.conf 
+  174  systemctl restart httpd
+  175  vi /etc/grop
+  176  vi /etc/group
+  177  systemctl restart httpd
+  178  exit
+  179  php artisan migrate
+  180  pdw
+  181  cd home
+  182  pdw
+  183  exit
+  184  apt-get install php7.4-gd
+  185  sudo apt-get install php7.4-gd
+  186  php -i | grep -i gd
+  187  yum -y install php7.4-gd
+  188  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-pecl-mcrypt php-mysqlnd php-pecl-mysql
+  189  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-pdo php-pecl-mcrypt php-mysqlnd php-pecl-mysql
+  190  yum remove php*
+  191  yum remove php
+  192  yum -y install --enablerepo=remi,remi-php73 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-pecl-mcrypt php-mysqlnd php-pecl-mysql
+  193  yum install openssl
+  194  sudo apt-get install php7.4-gd
+  195  locate apt-get
+  196  sudo apt update
+  197  locate apt
+  198  curl https://raw.githubusercontent.com/dvershinin/apt-get-centos/master/apt-get.sh -o /usr/local/bin/apt-get
+  199  chmod 0755 /usr/local/bin/apt-get
+  200  sudo apt-get install php7.4-gd
+  201  apt-get install php7.4-gd
+  202  yum install php7.4-gd
+  203  yum install php-gd
+  204  yum list | grep gd
+  205  yum install php74-php-gd.x86_64 --enablerepo=remi
+  206  yum install php74-php-gd.x86_64 --enablerepo=remi --skip-broken to work around the problem
+  207  rpm -ql php54-php-gd.x86_64
+  208  rpm -ql php74-php-gd.x86_64
+  209  yum install php74-php-gd.x86_64 --enablerepo=remi
+  210  yum install php74-php-gd.x86_64 --enablerepo=remi,epel
+  211  yum install php74-pecl-mcrypt --enablerepo=remi,epel
+  212  yum install php74-mcrypt --enablerepo=remi,epel
+  213  yum list | grep mcrypt
+  214  yum install php74-php-pecl-mcrypt --enablerepo=remi,epel
+  215  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-pecl-mcrypt php-mysqlnd php-pecl-mysql
+  216  yum install libXpm
+  217  yum install libtiff
+  218  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-pecl-mcrypt php-mysqlnd php-pecl-mysql
+  219  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-mcrypt php-mysqlnd php-pecl-mysql
+  220  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-gd php-pdo php-mysqlnd php-pecl-mysql
+  221  yum -y install --enablerepo=remi,remi-php74 php php-mbstring php-xml php-xmlrpc php-pdo php-mysqlnd php-pecl-mysql
+  222  yum -y install --enablerepo=remi,remi-php74 php-mycrypt
+  223  yum -y install --enablerepo=remi,remi-php74 php-pecl-mycrypt
+  224  yum list | grep mycrypt
+  225  yum -y install --enablerepo=remi,remi-php74 php-pecl-mcrypt
+  226  yum -y install --enablerepo=remi,remi-php74 php-mcrypt
+  227  yum list | grep mcrypt
+  228  yum install php74-php-pecl-mcrypt
+  229  yum install libmcrypt
+  230  yum install php-mcrypt
+  231  yum install php-pecl-mcrypt
+  232  yum list | grep mcrypt
+  233  yum install libtomcrypt libtomcrypt-devel 
+  234  yum install php74-php-pecl-mcrypt
+  235  yum list installed | grep php
+  236  yum list php-gd
+  237  yum list installed | grep php-gd
+  238  yum list installed | grep php74
+  239  yum list | grep php74
+  240  yum install php74-php-gd
+  241  yum install libraqm
+  242  rpm -ivh libtif
+  243  rpm -ivh libtiff
+  244  yum -y install --enablerepo=remi,remi-php74 php-gd
+  245  yum -y install --enablerepo=remi,remi-php74 libgd
+  246  yum list | grep
+  247  yum list | grep php-gd
+  248  dnf remove php74-php-gd
+  249  yum remove php74-php-gd
+  250  yum install php-gd
+  251  apt-get install php-gd
+  252  yum install -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+  253  yum install -y --enablerepo=remi-php74 php-gd php-zip
+  254  rpm -Va --nofiles --nodigest
+  255  yum install -y --enablerepo=remi-php74 php-gd php-zip
+  256  history | grep php
+  257  yum install -y --enablerepo=remi,remi-php74 php-gd
+  258  yum update
+  259  yum upgrade
+  260  yum list installed | grep php
+  261  yum install php-gd
+  262  yum remove php74-php-common php74-php-json php74-runtime
+  263  yum install php-gd
+  264  yum remove php*
+  265  history | grep php
+  266  yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+  267  yum list --enablerepo=remi,epel librapm
+  268  yum update
+  269  apt-get update
+  270  apt-get install php-gd
+  271  yum install php-gd
+  272  php -i | grep gd
+  273  systemctl restart httpd
+  274  yum list | grep imagemagick
+  275  yum list | grep magick
+  276  php -v
+  277  yum install php74-php-pecl-gmagick php74-php-pecl-imagick
+  278  yum list --enablerepo=remi,epel php74-php-pecl-gmagick
+  279  yum install --enablerepo=remi,epel php74-php-pecl-gmagick
+  280  yum install --enablerepo=remi,epel php74-php-pecl-imagick
+  281  systemctl restart httpd
+  282  yum install --enablerepo=remi,epel php-gd
+  283  yum list installed | grep php
+  284  yum install ImageMagick ImageMagick-devel
+  285  systemctl restart httpd
+  286  yum install --enablerepo=remi,epel php74-php-pecl-imagick
+  287  yum install php74-php-pecl-imagick
+  288  yum remove php74-php-pecl-gmagick
+  289  yum install php74-php-pecl-imagick
+  290  systemctl restart httpd
+  291  ls
+  292  cd /etc/php
+  293  vi /etc/php.ini
+  294  cd php.d
+  295  ls /etc/php.d
+  296  ls /etc/php-zts.d/
+  297  php -v
+  298  yum info php-gd
+  299  yum list installed | grep php
+  300  rpm -ql php74-php-gd.x86_64
+  301  ls /opt/remi/php74/root/usr/lib64/php/modules/
+  302  /usr/lib64/php/modules
+  303  ls /usr/lib64/php/modules
+  304  ls /opt/remi/php74/root/usr/lib64/php/modules/
+  305  cd /usr/lib64/php/modules
+  306  ls -s /opt/remi/php74/root/usr/lib64/php/modules/gd.so gd.so
+  307  ln -s /opt/remi/php74/root/usr/lib64/php/modules/gd.so gd.so
+  308  ll
+  309  pwd
+  310  systemctl restart httpd
+  311  cd /opt/remi/php74/root/usr/lib64/php/modules/
+  312  ll
+  313  cd ..
+  314  ls
+  315  ll
+  316  cd ..
+  317  ls
+  318  cd ..
+  319  ls
+  320  cd etc/
+  321  ls
+  322  ls -la
+  323  cd ..
+  324  cd lib64
+  325  ls
+  326  cd /usr/lib64/php/modules
+  327  ls
+  328  rm gd.so
+  329  cp /opt/remi/php74/root/usr/lib64/php/modules/gd.so .
+  330  ll
+  331  php -v
+  332  systemctl restart httpd
+  333  cd /etc/httpd/conf.d
+  334  ls
+  335  less php.conf
+  336  vi /etc/php.ini
+  337  vi /etc/php.d/20-json.ini
+  338  cd /etc/php.d/
+  339  cp 20-json.ini 20-gd.ini
+  340  vi 20-gd.ini 
+  341  ls
+  342  vi 20-gd.ini 
+  343  php -v
+  344  systemctl restart httpd
+  345  history
+  346  cd /usr/lib64/php/modules
+  347  rm gd.so
+  348  ln -s /opt/remi/php74/root/usr/lib64/php/modules/gd.so gd.so
+  349  ll
+  350  php -v
+  351  systemctl restart httpd
+  352  cd
+  353  ls
+  354  history > log.txt
+  355  vi log.txt 
+  356  pwd
+  357  ls
+  358  php artisan migrate:fresh
+  359  exit;
+  360  php migrate:fresh --seed
+  361  php artisan migrate:fresh --seed
+  362  pdw
+  363  pwd
+  364  cd projects/postcard
+  365  php artisan migrate:fresh --seed
+  366  -v
+  367  php artisan migrate:fresh --seed
+  368  php artisan migrate -v
+  369  php artisan migrate:fresh --seed
+  370  exit
+  371  cd projects
+  372  cd postcard
+  373  npm install bootstrap -v 5.1.0
+  374  gem install bootstrap -v 5.1.0
+  375  apt-get install -y npm
+  376  yum install nodejs npm -y
+  377  npm install bootstrap -v 5.1.0
+  378  yum install nodejs npm -y
+  379  apt-get install npm
+  380  npm install
+  381  apt-get install curl
+  382  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+  383  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  384  command -v nvm
+  385  -v nvm
+  386  nvm ls
+  387  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  388  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  389  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  390  nvm ls
+  391  nvm install node
+  392  nvm install --lts
+  393  nvm ls
+  394  node --version
+  395  npm --version
+  396  npm install bootstrap -v 5.0.1
+  397  npm install bootsrap@latest
+  398  npm install bootstrap@latest
+  399  npm i bootstrap@5.1.0
+  400  npm audio fix
+  401  npm audit fix
+  402  npm audit fix --force
+  403  history > install_bootstrap.txt
