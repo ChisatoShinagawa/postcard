@@ -1,4 +1,4 @@
-@extends('layouts.upload')
+@extends('layouts.boot_upload')
 @section('content')
     <div class="container mt-5">
     <div class="row">
@@ -6,7 +6,7 @@
                 <div class="card shadow">
                     <div class="card-header" style="background-color: e7eafb;">
                         <div class="card-title">
-                            <h4 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">PDF 完成!</h4>
+                            <h4 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">メッセージカード 完成!</h4>
                         </div>
                     </div>
                     <div class="card-body" style="background-color: e7eafb;">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-footer" style="background-color: e7eafb; border: none;">
                         <a href="{{ route( 'single_download_proc', $id ) }}" class="btn btn-outline-secondary btn-md ml-3">ダウンロード</a>               
-                        <a href="{{ route( 'welcome_message_card' ) }}" target="_self" class="btn btn-outline-secondary btn-sm ml-3">最初のページへ</a>                                           
+                        <a href="{{ route( 'welcome_message_card', 'ja' ) }}" target="_self" class="btn btn-outline-secondary btn-sm ml-3">最初のページへ</a>                                           
                     </div>
                 </div>
             </div>

@@ -95,7 +95,7 @@
         <div class="mt-5 pb-5" style="text-align: center">
             <div class="mt-5 mr-3" style="color: #777571;">{{ __( 'lang.confirm_createpdf' ) }}</div>
             <div class="mt-5 ml-3">
-                <a href="{{ route( 'upload' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' )}}</a>
+                <a href="{{ route( 'upload', 'en' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' )}}</a>
                 <a href="{{ route( 'register_proc' ) }}" class="btn btn-outline-secondary btn-md ml-3">{{ __( 'lang.button_back' ) }}</a>
             </div>
         </div>

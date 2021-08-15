@@ -3,9 +3,9 @@
 <div class="container">
     <div style="text-align:center;" class="my-5">
         <p class="mb-5 pt-5" style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Card Type</p>
-        <p>{{ __( 'lang.select_template' )}}</p>
+        <p>Select a template then enter 'next'.</p>
     </div>
-    <form action="{{ route( 'upload' ) }}" method="post">
+    <form action="{{ route( 'upload', 'en' ) }}" method="post">
     @csrf
         <div class="row">        
             <div class="col-md-6 my-2">

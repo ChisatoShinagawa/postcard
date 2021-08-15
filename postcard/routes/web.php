@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\LocalizationMiddleware;
 
 
 /*
@@ -18,30 +18,23 @@
 //     return view('welcome');
 // });
 
-Route::get('/', function(){
-    return view('welcome_message_card');
-});
 
-Route::any( '/{lang}', function( $lang ){
-    App::setlocale( $lang );
-    return view( 'welcome_message_card' );
-} );
+// Route::get('/', function(){
+//     return view('welcome_message_card'); 
+// });
 
-Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
-//Route::any('/english/{id}', 'PDFController@english')->name('english');
+
 
 Route::any('/entry_orderid', 'PDFController@entry_orderid')->name('entry_orderid');
 Route::post('/check_orderid', 'PDFController@check_orderid')->name('check_orderid');
-Route::any( '/select_card_type', 'PDFController@selectCardType' )->name( 'select_card_type' );
-Route::any('/upload', 'PDFController@upload')->name('upload');
+
 Route::post('/upload_proc', 'PDFController@uploadProc')->name('upload_proc');
-Route::any('/resize_preview_image', 'PDFController@resizeAndMakePreviewImage' )->name('resize_and_make_preview_image');
-Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
+//Route::any('/resize_preview_image', 'PDFController@resizeAndMakePreviewImage' )->name('resize_and_make_preview_image');
 Route::any('/register_proc', 'PDFController@registerProc')->name('register_proc');
 
 Route::any('/createpdf/{id}', 'PDFController@createPdf')->name('create_pdf');
 Route::any('/resize', 'PDFController@resizeImage' )->name('resize');
-Route::any('/download_pdf/{id}', 'PDFController@downloadPdf' )->name('download_pdf');
+
 Route::any('/complete', 'PDFController@complete' )->name('complete');
 
 // 誰でもダウンロードできるようにauthから外す
@@ -60,3 +53,14 @@ Route::group( ['middleware' => 'auth'],function(){
 
 Route::get('/sys_img/{id}', 'ImageController@get');
 
+Route::group([ 'prefix' => '/{lang}/', 'middleware' => 'localization' ], function(){
+    Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
+    Route::any( '/select_card_type', 'PDFController@selectCardType' )->name( 'select_card_type' );
+    Route::any('/upload', 'PDFController@upload')->name('upload');
+    Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
+    Route::any('/download_pdf/{id}', 'PDFController@downloadPdf' )->name('download_pdf');
+});
+
+Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
+//Route::get('/{lang}', 'LocalizationController@index')->name('localization')->middleware( 'web' ); // すべてここで吸収されてしまう? redirect2回
+//Route::get('/ja', 'LocalizationController@index');

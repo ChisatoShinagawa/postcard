@@ -18,6 +18,8 @@ use FPDF;
 use PDF;
 use PDF_Japanese;
 use Config;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
 
 require( base_path( '/app/fpdf/japanese.php' ) );
 require( base_path( '/vendor/autoload.php' ) );
@@ -25,8 +27,24 @@ require( base_path( '/vendor/autoload.php' ) );
 class PDFController extends Controller
 {
     public function welcome_message_card( Request $request )
-    {        
-        return view( 'welcome_message_card' );
+    {
+        $view = view( 'japanese.welcome_message_card' );
+        if( App::getLocale() ){
+            $lang = App::getLocale();
+            switch( $lang ){
+                case 'ja':
+                    $view = view( 'japanese.welcome_message_card' );
+                    break;
+                case 'en':
+                    $view = view( 'english.welcome_message_card' );
+                    break;
+                default:
+                    $view = view( 'english.welcome_message_card' );
+                    break;
+            }
+        }
+        $view->with( 'current_route_name', Route::currentRouteName() );
+        return $view;
     }
 
     // public function english( Request $request )
@@ -45,7 +63,7 @@ class PDFController extends Controller
     {
         $pro_id = '';
         $key_day = 0;
-        
+
         $validator = $this->message_card_rules( $request->input() );
         if( $validator->fails() ){
             return redirect()->back()->withErrors( $validator )->withInput();
@@ -94,16 +112,32 @@ class PDFController extends Controller
         return $validator;        
     }
 
-    public function selectCardType( Request $request )
+    public function selectCardType( Request $request, $lang )
     {
-        $view = view( 'select_card_type' );
-        if( $request->session()->get( 'lang' ) === 'english' ){
-            $view = view( 'english.select_card_type' );
+        if( !session()->has( 'pro_id' ) | !session()->has( 'order_id' ) ){
+            // set provisional id for indivisual user ( didn't go through check_orderid )
+            $pro_id = time().time();
+            $order_id = 3333;
+            $request->session()->put( 'pro_id', $pro_id );
+            $request->session()->put( 'order_id', $order_id );
         }
+
+        switch( $lang ){
+            case 'ja':
+                $view = view( 'japanese.select_card_type' );
+                break;
+            case 'en':
+                $view = view( 'english.select_card_type' );
+                break;
+            default:
+            $view = view( 'english.select_card_type' );
+            break;
+        }
+        $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
 
-    public function upload( Request $request )
+    public function upload( Request $request, $lang )
     {
         $cardType = '';
         $templateImage = '';
@@ -139,16 +173,22 @@ class PDFController extends Controller
         }
 
         $form = $this->getUploadForm( $data );
-        
-        $view = view( 'upload' );
-        // English
-        if( $request->session()->get( 'lang' ) === 'english' ){
+
+        switch( $lang ){
+            case 'ja':
+                $view = view( 'japanese.upload' );
+                break;
+            case 'en':
+                $view = view( 'english.upload' );
+                break;
+            default:
             $view = view( 'english.upload' );
+            break;
         }
         $view->with( 'templateImage', $templateImage );
         $view->with( 'form', $form );
         $view->with( 'original_image', $original_image );
-
+        $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
 
@@ -219,59 +259,37 @@ class PDFController extends Controller
             $name = $key.'.'.$file->getClientOriginalExtension();
             $target_path = storage_path( '/app/public/img/uploads/' );
             $file->move( $target_path, $name ); 
-//var_dump($name);exit;
-            $request->session()->put( 'card_info.input.image', $name );
+
+            $request->session()->put( 'card_info.input.image', $name ); // いる？
+
+            // resize and make image with template then save
+            // open inserted image
+            $insert_img = ImageManagerStatic::make( storage_path( 'app/public/img/uploads/'.$name ) );
+
+            // open a template file
+            $img = ImageManagerStatic::make( storage_path( 'app/public/img/photocard6.png' ) );
+
+            // crop and resize ( flower2 )
+            $insert_img = $insert_img->resize( 316, null, function( $constraint ){
+                $constraint->aspectRatio();
+            } );
+            $img->insert( $insert_img, 'top-left', 40, 19 );
+            // $insert_img = $insert_img->orientate() // orientate()を入れれば回転は避けられる
+            //                             ->resize( 316, null, function( $constraint ){ // 試し
+            //                                 $constraint->aspectRatio(); // 試し
+            //                                 } ); // 試し
+            // $img->insert( $insert_img, 'top-left', 40, 19 ); // 試し
+                
+            // save preview image in storage without message
+            $pre_name = storage_path( 'app/public/img/previews/'.$name ); 
+    
+            $img->save( $pre_name );
         }
-
-        // preview画面に進む前にresizeへ go resize method before preview method
-        return redirect()->route( 'resize_and_make_preview_image' );
-    }
-
-    public function resizeAndMakePreviewImage( Request $request )
-    {
-        // get a image info from session
-        $image = $request->session()->get( 'card_info.input.image' );
-
-        // open inserted image
-        $insert_img = ImageManagerStatic::make( storage_path( 'app/public/img/uploads/'.$image ) );
-
-        // open a template file
-        $img = ImageManagerStatic::make( storage_path( 'app/public/img/photocard6.png' ) );
-
-        // crop and resize ( flower2 )
-        $insert_img = $insert_img->resize( 316, null, function( $constraint ){
-            $constraint->aspectRatio();
-        } );
-        $img->insert( $insert_img, 'top-left', 40, 19 );
-        // $insert_img = $insert_img->orientate() // orientate()を入れれば回転は避けられる
-        //                             ->resize( 316, null, function( $constraint ){ // 試し
-        //                                 $constraint->aspectRatio(); // 試し
-        //                                 } ); // 試し
-        // $img->insert( $insert_img, 'top-left', 40, 19 ); // 試し
-            
-        // save preview image in storage without message
-        $pre_name = storage_path( 'app/public/img/previews/'.$image ); 
-//var_dump($request->session()->get( 'pro_id' ));exit;
-        $img->save( $pre_name );
 
         // set dammy id for preview ( won't be used )
         $id = $request->session()->get( 'pro_id' );
 
         return redirect()->route( 'preview', $id );
-    }
-
-    public function resizeImageForPdf( $filename, $width, $height )
-    {
-        $img = '';
-        $destinationPath = '';
-
-        $destinationPath = storage_path( '/app/public/img/resize/' );
-        // open a file
-        $img = ImageManagerStatic::make( storage_path( 'app/public/img/uploads/'.$filename ) );
-        //$img->resize( 567, 340, function( $constraint ){ //small 640 480
-        $img->resize( $width, null, function( $constraint ){ // 1129 * 752 pixel for making 95.6 * 63.7 mm
-            $constraint->aspectRatio();
-        } )->save( $destinationPath.$filename );
     }
 
     public function preview( Request $request, $id )
@@ -282,7 +300,21 @@ class PDFController extends Controller
             $message_to = $request->session()->get( 'card_info.input.message_to' );
             $message_content = $request->session()->get( 'card_info.input.message_content' );
             $message_from = $request->session()->get( 'card_info.input.message_from' );
-            $view = view( 'preview_flower2' );            
+            $view = view( 'japanese.preview_flower2' );  
+            if( App::getLocale() ){
+                $lang = App::getLocale();
+                switch( $lang ){
+                    case 'ja':
+                        $view = view( 'japanese.preview_flower2' );
+                        break;
+                    case 'en':
+                        $view = view( 'english.preview_flower2' );
+                        break;
+                    default:
+                    $view = view( 'english.preview_flower2' );
+                    break;
+                }
+            }                    
         } else{
             // admin : get a main image and message detail from Database
             $message_card = Message_card::find( $id );
@@ -290,7 +322,7 @@ class PDFController extends Controller
             $message_to      = $message_card->message_to;
             $message_content = $message_card->message_content;
             $message_from    = $message_card->message_from;
-            $view = view( 'preview_flower2' );
+            $view = view( 'japanese.preview_flower2' );
         }
 
         $url_img = Storage::url( 'img/previews/'.$image );
@@ -298,39 +330,38 @@ class PDFController extends Controller
         $num = mb_strlen( $message_content );
     
         // 4 rows
-        if( 57 > $num && $num > 42 ){
+        if( 73 > $num && $num > 54 ){
             $message_content_4 = $message_content;
         }
         // 3 rows
-        if( 43 > $num && $num > 28 ){
+        if( 55 > $num && $num > 36 ){
             $message_content_3 = $message_content;
         }
         // 2 rows
-        if( 29 > $num && $num > 14 ){
+        if( 37 > $num && $num > 18 ){
             $message_content_2 = $message_content;
         }
         // 1 rows
-        if( 15 > $num && $num > 0 ){
+        if( 19 > $num && $num > 0 ){
             $message_content_1 = $message_content;
         }
-//var_dump( $request->session()->get( 'lang' ) );exit;
+
         // English
-        if( $request->session()->get( 'lang' ) === 'english' ){
-            $view = view( 'english.preview_flower2' );
+        if( $lang === 'en' ){
             // 4 rows
-            if( 113 > $num && $num > 84 ){
+            if( 145 > $num && $num > 108 ){
                 $message_content_4 = $message_content;
             }
             // 3 rows
-            if( 85 > $num && $num > 56 ){
+            if( 109 > $num && $num > 72 ){
                 $message_content_3 = $message_content;
             }
             // 2 rows
-            if( 57 > $num && $num > 28 ){
+            if( 73 > $num && $num > 36 ){
                 $message_content_2 = $message_content;
             }
             // 1 rows
-            if( 29 > $num && $num > 0 ){
+            if( 37 > $num && $num > 0 ){
                 $message_content_1 = $message_content;
             }
         }
@@ -351,6 +382,7 @@ class PDFController extends Controller
         $view->with( 'message_to', $message_to ); 
         $view->with( 'message_from', $message_from );
         $view->with( 'url_img', $url_img );
+        $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
 
@@ -364,7 +396,7 @@ class PDFController extends Controller
         //$message_card_info = new Message_card;
         $data = [];
         $message_card = '';
-
+//var_dump($request->session()->get( 'order_id' ));exit;
         $data = $request->session()->get( 'card_info.input' );
         if( !$data ){
             return redirect()->route( 'entry_orderid' );
@@ -396,6 +428,20 @@ class PDFController extends Controller
         return imageresolution( $img );var_dump($img);exit;
     }
 
+    protected function resizeImageForPdf( $filename, $width, $height )
+    {
+        $img = '';
+        $destinationPath = '';
+
+        $destinationPath = storage_path( '/app/public/img/resize/' );
+        // open a file
+        $img = ImageManagerStatic::make( storage_path( 'app/public/img/uploads/'.$filename ) );
+        //$img->resize( 567, 340, function( $constraint ){ //small 640 480
+        $img->resize( $width, null, function( $constraint ){ // 1129 * 752 pixel for making 95.6 * 63.7 mm
+            $constraint->aspectRatio();
+        } )->save( $destinationPath.$filename );
+    }
+
     public function createPdf( Request $request, $id )
     {
         $data = [];
@@ -420,8 +466,7 @@ class PDFController extends Controller
         $cardType        = $request->session()->get( 'cardType' );
 
         $paper_W_mm = 111; // 4 * 6 inch array( 101.6, 152.4 )
-        $paper_H_mm = 156.5;
-
+        $paper_H_mm = 156;
         // card type
         if( $cardType === 'flower' ){
             $pdf = new Fpdi( 'P', 'mm', array( $paper_W_mm, $paper_H_mm ) ); 
@@ -493,7 +538,7 @@ class PDFController extends Controller
             $pdf->MultiCell( 0, 8, 'Dear  '.$message_to, 0, 'C', false ); // 4番目を0でno frame, 1でwith frame
 
             // text message
-            $pdf->SetXY( 9.7, 90 );
+            $pdf->SetXY( 9.9, 90 );
             $pdf->SetFontSize( 12 );        
             $message_content = mb_convert_encoding( $message_content, 'SJIS', 'UTF-8' );
             $pdf->MultiCell( 0, 8, $message_content, 0, 'L', false );
@@ -523,10 +568,22 @@ class PDFController extends Controller
         return redirect()->route( 'download_pdf', $id );
     }
 
-    public function downloadPdf( $id )
+    public function downloadPdf( $lang, $id )
     {
-        $view = view( 'download_pdf' );
+        $view = view( 'japanese.download_pdf' );
+        switch( $lang ){
+            case 'ja':
+                $view = view( 'japanese.download_pdf' );
+                break;
+            case 'en':
+                $view = view( 'english.download_pdf' );
+                break;
+            default:
+            $view = view( 'english.download_pdf' );
+            break;
+        }
         $view->with( 'id', $id );
+        $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
 
