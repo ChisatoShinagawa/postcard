@@ -1,45 +1,32 @@
-@extends( 'layouts.upload' )
+@extends( 'layouts.boot_upload' )
 @section( 'content' )
-<style>
-.contents{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-top: 30px;
-}
-.item{
-    width: calc( 100% / 2 - 30px );
-    margin-bottom: 30px;
-    padding: 50px 50px;
-    text-align: center;
-    float: left;
-}
-</style>
-<div style="text-align:center;" class="mt-5">
-<p style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Card Type</p>
-</div>
-<div class="contents">
+<div class="container">
+    <div style="text-align:center;" class="my-5">
+        <p class="mb-5 pt-5" style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Card Type</p>
+        <p>{{ __( 'lang.select_template' )}}</p>
+    </div>
     <form action="{{ route( 'upload' ) }}" method="post">
-        @csrf
-        <div style="text-align:center; font-size: 20px;">
-            <p>Select a template then enter 'next'.</p>
-        </div>
-        <div class="item">
-            <div class="mb-5">
-                <input type="radio" name="cardType" value="flower" id="cardTaypeFlower">
-                <label for="cardTaypeFlower"></label>
+    @csrf
+        <div class="row">        
+            <div class="col-md-6 my-2">
+                <div class="custom-control custom-radio image-checkbox">
+                  <input type="radio" class="custom-control-input" name="cardType" value="flower" id="cardTaypeFlower">
+                  <label class="custom-control-label" for="cardTaypeFlower">
+                      <img class="img-fluid" src="/storage/img/photocard6.png" style="width: 300px">
+                  </label>
+                </div>                     
             </div>
-            <img src="/storage/img/photocard6.png" style="width: 350px;" alt="">
+            <div class="col-md-6 my-2">
+                <div class="custom-control custom-radio image-checkbox">
+                  <input type="radio" class="custom-control-input" name="cardType" value="leaf" id="cardTaypeLeaf">
+                  <label class="custom-control-label" for="cardTaypeLeaf">
+                      <img class="img-fluid" src="/storage/img/photocard4-1.png" style="width: 300px">
+                  </label>
+                </div>                     
+            </div>       
         </div>
-        <div class="item">
-            <div class="mb-5">
-                <input type="radio" name="cardType" value="leaf" id="cardTaypeLeaf">
-                <label class="form-check-label" for="cardTaypeLaef"></label>
-            </div>
-            <img src="/storage/img/photocard4-1.png" style="width: 350px;" alt=""> 
-        </div>
-        <div style="text-align:center;">
+        <div class="my-5" style="text-align:center;">
             <button type="submit" class="btn btn-outline-secondary btn-md">next</button>
-        </div>
+        </div> 
     </form>
 </div>

@@ -18,7 +18,7 @@
     
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset( 'css/app.css' ) }}">
 
 
     <style>
@@ -35,7 +35,10 @@
           font-size: 3.5rem;
         }
       }
-
+/* 
+      li{
+        display: inline;
+      } */
       
     </style>
 
@@ -43,11 +46,11 @@
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
   </head>
-  <body class="d-flex flex-column h-100" style="color:#777571; background-color:#D7DBDD;">
+  <body class="d-flex flex-column h-100" style="color:#777571; background-color:#FDF2E9;">
     
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+  <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color:#FADBD8">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" style="color:#777571;">Message card App</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,17 +67,15 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Privacy Policy</a>
           </li>
-        </ul>
-        <ul class="navbar-nav mr-2">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown rightli" style="float:right">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Language
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route( 'english', 1 ) }}">English</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/en">English</a>
+              <a class="dropdown-item" href="/ja">Japanese</a>
+              {{--<div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>--}}
             </div>
           </li>
         </ul>
@@ -84,21 +85,19 @@
 </header>
 
 <!-- Begin page content -->
-<main class="flex-shrink-0" style="color: #777571;">
-  <div class="container">
+<main class="flex-shrink-0">
+  <div class="container mt-5 pt-5">
   @yield('content')
   </div>
 </main>
 
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-auto py-3" style="background-color: #FADBD8">
   <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
+    <span class="text-muted">2021</span>
   </div>
 </footer>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
+<script src="{{ asset( 'js/app.js' ) }}" defer></script>
       
   </body>
 </html>

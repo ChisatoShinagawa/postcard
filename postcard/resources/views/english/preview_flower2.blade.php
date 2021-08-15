@@ -93,10 +93,10 @@
             <img style="-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="{{$url_img}}">    
         </div>
         <div class="mt-5 pb-5" style="text-align: center">
-            <div class="mt-5 mr-3" style="color: #777571;">Once you create PDF, you wouldn't be able to change it.</br>Are you sure to create PDF?</div>
+            <div class="mt-5 mr-3" style="color: #777571;">{{ __( 'lang.confirm_createpdf' ) }}</div>
             <div class="mt-5 ml-3">
-                <a href="{{ route( 'upload' ) }}" class="btn btn-outline-secondary btn-md">back</a>
-                <a href="{{ route( 'register_proc' ) }}" class="btn btn-outline-secondary btn-md ml-3">Create PDF</a>
+                <a href="{{ route( 'upload' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' )}}</a>
+                <a href="{{ route( 'register_proc' ) }}" class="btn btn-outline-secondary btn-md ml-3">{{ __( 'lang.button_back' ) }}</a>
             </div>
         </div>
     </body>

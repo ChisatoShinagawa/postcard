@@ -1,0 +1,31 @@
+<?php
+return [
+    'welcome' => 'Welcome to Message card App!',
+    'outline'   => 'Outline',
+    'outline_text' => 'You can make your original message card with photo.',
+    'detail' => 'How does it work?',
+    'select' => 'Select a favorite frame.',
+    'select_text' => 'You can choose what you want to use a template.',
+    'create_card' => 'Create a message card',
+    'create_card__text' => 'Upload an image and add text messages.',
+    'preview' => 'Preview',
+    'preview_text' => 'You can go back privious page if you want to change some parts of card.',
+    'create_pdf' => 'Create PDF',
+    'download_pdf' => 'Download PDF',
+    'get_started' => 'Let\'s get started!',
+    'select_template' => 'Select a template then enter \'next\'.',
+    'message_current_image' => 'Current uploaded image',
+    'message_to' => 'Dear - up to 22 letters -',
+    'message_content' => 'Message - up to 112 letters -',
+    'message_from' => 'From - up to 22 letters -',
+    'confirm_createpdf' => 'Once you create PDF, you wouldn\'t be able to change it.</br>Are you sure to create PDF?',
+    'success_createpdf' => 'Create PDF Successfully!',
+    'thankyou' => 'Please download by pushing \'download\' button below!</br>
+            Thank you so much for using this application!</br>
+            Please feel free to contact this email address to ask something.</br>',
+    'button_next' => 'next',
+    'button_back' => 'back',
+    'button_createPDF' => 'Create PDF',
+    'button_download' => 'Download',
+    'button_back_welcome' => 'Back to Welcome page',
+];

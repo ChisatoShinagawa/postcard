@@ -26,18 +26,15 @@ class PDFController extends Controller
 {
     public function welcome_message_card( Request $request )
     {        
-        if( $request->session()->has( 'lang' ) ){ //var_dump( $request->session()->get( 'lang' ) );exit;
-            $request->session()->forget( 'lang' );
-        }
         return view( 'welcome_message_card' );
     }
 
-    public function english( Request $request )
-    {
-        $request->session()->put( 'lang', 'english' );
-        $view = view( 'english.welcome_message_card' );
-        return $view;
-    }
+    // public function english( Request $request )
+    // {
+    //     $request->session()->put( 'lang', 'english' );
+    //     $view = view( 'english.welcome_message_card' );
+    //     return $view;
+    // }
 
     public function entry_orderid()
     {
@@ -48,6 +45,7 @@ class PDFController extends Controller
     {
         $pro_id = '';
         $key_day = 0;
+        
         $validator = $this->message_card_rules( $request->input() );
         if( $validator->fails() ){
             return redirect()->back()->withErrors( $validator )->withInput();
@@ -84,6 +82,7 @@ class PDFController extends Controller
 
         $key_day = Config::get( 'app.key_day' );
         $limit = time() + $key_day * 24 * 3600;
+
         $messages = [
             'order_id.exists' => '注文番号をお確かめください。', // orders,id まで書くと出ない
             'delivery_at'     => "出荷日から{$key_day}日前までの受付となります。"

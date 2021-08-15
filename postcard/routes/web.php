@@ -22,8 +22,13 @@ Route::get('/', function(){
     return view('welcome_message_card');
 });
 
+Route::any( '/{lang}', function( $lang ){
+    App::setlocale( $lang );
+    return view( 'welcome_message_card' );
+} );
+
 Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
-Route::any('/english/{id}', 'PDFController@english')->name('english');
+//Route::any('/english/{id}', 'PDFController@english')->name('english');
 
 Route::any('/entry_orderid', 'PDFController@entry_orderid')->name('entry_orderid');
 Route::post('/check_orderid', 'PDFController@check_orderid')->name('check_orderid');
@@ -54,3 +59,4 @@ Route::group( ['middleware' => 'auth'],function(){
 } );
 
 Route::get('/sys_img/{id}', 'ImageController@get');
+
