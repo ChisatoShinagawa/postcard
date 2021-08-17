@@ -295,7 +295,7 @@ class HomeController extends Controller
         foreach( $id as $num ){
             //$files[] = Message_card::where( 'id', $num )->value( 'pdf' );var_dump($files);exit;
 
-            $message_card = Message_card::where( 'id', $num )->first();var_dump($message_card->pdf);exit;
+            $message_card = Message_card::where( 'id', $num )->first();//var_dump($message_card->pdf);exit;
             $files[] = $message_card->pdf;
             $message_card->download_at = date( "Y-m-d H:i:s", time() );
             $message_card->save();                

@@ -19,16 +19,18 @@ use App\Http\Middleware\LocalizationMiddleware;
 // });
 
 
-// Route::get('/', function(){
-//     return view('welcome_message_card'); 
-// });
+Route::get('/', function(){
+    $view = view('en.welcome_message_card');
+    $view->with( 'current_route_name', Route::currentRouteName() );
+    return $view; 
+});
 
 
 
 Route::any('/entry_orderid', 'PDFController@entry_orderid')->name('entry_orderid');
 Route::post('/check_orderid', 'PDFController@check_orderid')->name('check_orderid');
 
-Route::post('/upload_proc', 'PDFController@uploadProc')->name('upload_proc');
+
 //Route::any('/resize_preview_image', 'PDFController@resizeAndMakePreviewImage' )->name('resize_and_make_preview_image');
 Route::any('/register_proc', 'PDFController@registerProc')->name('register_proc');
 
@@ -42,7 +44,7 @@ Route::any('/download_proc/{id}', 'HomeController@singleDownloadProc')->name('si
 
 Route::group( ['middleware' => 'auth'],function(){
     Route::any('/admin', 'HomeController@index')->name('home');
-    // Route::any('/home', 'HomeController@index')->name('home');
+    Route::any('/home', 'HomeController@index')->name('home');
     Route::any('/dashboard', 'HomeController@goDashboard')->name('dashboard');
     Route::any('/entry_import_file', 'HomeController@entryImportFile')->name('entry_import_file');
     Route::post('/import_csv', 'HomeController@importCsv')->name('import_csv');
@@ -52,15 +54,18 @@ Route::group( ['middleware' => 'auth'],function(){
 } );
 
 Route::get('/sys_img/{id}', 'ImageController@get');
+Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
 
 Route::group([ 'prefix' => '/{lang}/', 'middleware' => 'localization' ], function(){
     Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
     Route::any( '/select_card_type', 'PDFController@selectCardType' )->name( 'select_card_type' );
     Route::any('/upload', 'PDFController@upload')->name('upload');
+    Route::post('/upload_proc', 'PDFController@uploadProc')->name('upload_proc');
     Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
     Route::any('/download_pdf/{id}', 'PDFController@downloadPdf' )->name('download_pdf');
 });
 
-Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
+//Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
+
 //Route::get('/{lang}', 'LocalizationController@index')->name('localization')->middleware( 'web' ); // すべてここで吸収されてしまう? redirect2回
 //Route::get('/ja', 'LocalizationController@index');

@@ -72,8 +72,8 @@
               Language
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/en/{{ $current_route_name }}">English</a>
-              <a class="dropdown-item" href="/ja/{{ $current_route_name }}">Japanese</a>
+              <a class="dropdown-item" href="{{ route( $current_route_name, 'en' ) }}">English</a>
+              <a class="dropdown-item" href="{{ route( $current_route_name, 'ja' ) }}">Japanese</a>
             </div>
           </li>
         </ul>

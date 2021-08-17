@@ -24,7 +24,7 @@
         <li>Download PDF</li>
     </div>
     <div class="my-5" style="display: inline-block;">
-        <p>Let\'s get started!</p>
+        <p>Let's get started!</p>
         <form action="{{ route( 'select_card_type', 'en' ) }}" method="post">
         @csrf
             <input type="text" name="language" value="1" hidden>

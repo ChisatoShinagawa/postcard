@@ -14,11 +14,11 @@ return [
     // 'download_pdf' => 'PDFダウンロード',
     // 'get_started' => '下記のボタンを押してスタート！',
     'select_template' => 'お好きなカードを選んで「次へ」ボタンを押してください。',
-    'message_current_image' => '現在登録している写真は以下のものです。<br/>変更したい場合はもう一度写真を選択してください。',
+    'message_current_image' => '現在登録している写真は以下のものです。変更したい場合はもう一度写真を選択してください。',
     'message_to' => 'Dear - 11文字まで -',
     'message_content' => 'Message - 56文字まで -',
     'message_from' => 'From - 11文字まで -',
-    'confirm_createpdf' => '一度PDFを作成すると変更できません。</br>PDFをお作りしてよろしいですか？',
+    'confirm_createpdf' => '一度PDFを作成すると変更できません。PDFをお作りしてよろしいですか？',
     'success_createpdf' => 'PDFを作成しました！',
     'thankyou' => '下のダウンロードボタンを押すと、作成したPDFがご利用のパソコンにダウンロードされます。</br>
             パソコンにダウンロードすると、プリンターにて印刷することができます。</br>

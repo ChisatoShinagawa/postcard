@@ -14,7 +14,7 @@
                     <label for="image"></label>
                     <input type="file" name="image" class="form-control">
                     @isset( $original_image )
-                    <p class="mt-2">{{ __( 'lang.message_current_image' ) }}</p>
+                    <p class="mt-2" style="text-align:left;">{{ __( 'lang.message_current_image' ) }}</p>
                     <img src="{{ $original_image }}" style="width: 200;">
                     @endisset
                 </div>

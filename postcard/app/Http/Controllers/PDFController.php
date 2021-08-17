@@ -16,7 +16,7 @@ use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\URL;
 use FPDF;
 use PDF;
-use PDF_Japanese;
+use PDF_ja;
 use Config;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -26,31 +26,31 @@ require( base_path( '/vendor/autoload.php' ) );
 
 class PDFController extends Controller
 {
-    public function welcome_message_card( Request $request )
+    public function welcome_message_card( Request $request, $lang )
     {
-        $view = view( 'japanese.welcome_message_card' );
-        if( App::getLocale() ){
-            $lang = App::getLocale();
+        $view = view( 'en.welcome_message_card' );//var_dump( App::getLocale());exit;
+        // if( App::getLocale() ){
+        //     $lang = App::getLocale();
             switch( $lang ){
                 case 'ja':
-                    $view = view( 'japanese.welcome_message_card' );
+                    $view = view( 'ja.welcome_message_card' );
                     break;
                 case 'en':
-                    $view = view( 'english.welcome_message_card' );
+                    $view = view( 'en.welcome_message_card' );
                     break;
                 default:
-                    $view = view( 'english.welcome_message_card' );
+                    $view = view( 'en.welcome_message_card' );
                     break;
             }
-        }
+        // }
         $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
 
-    // public function english( Request $request )
+    // public function en( Request $request )
     // {
-    //     $request->session()->put( 'lang', 'english' );
-    //     $view = view( 'english.welcome_message_card' );
+    //     $request->session()->put( 'lang', 'en' );
+    //     $view = view( 'en.welcome_message_card' );
     //     return $view;
     // }
 
@@ -124,13 +124,13 @@ class PDFController extends Controller
 
         switch( $lang ){
             case 'ja':
-                $view = view( 'japanese.select_card_type' );
+                $view = view( 'ja.select_card_type' );
                 break;
             case 'en':
-                $view = view( 'english.select_card_type' );
+                $view = view( 'en.select_card_type' );
                 break;
             default:
-            $view = view( 'english.select_card_type' );
+            $view = view( 'en.select_card_type' );
             break;
         }
         $view->with( 'current_route_name', Route::currentRouteName() );
@@ -144,7 +144,7 @@ class PDFController extends Controller
         $data = [];
         $original_image = null;
         $form = [];
-
+//var_dump(App::getLocale());exit;
         // save card type if it's first visit
         if( !empty( $request->input( 'cardType' ) ) ){
             $request->session()->put( 'cardType', $request->input( 'cardType' ) );
@@ -154,8 +154,8 @@ class PDFController extends Controller
         // card type : flower
         if( $cardType === 'flower' ){
             $templateImage = Storage::url( 'img/exa_ja1.png' );
-            // English
-            if( $request->session()->get( 'lang' ) === 'english' ){
+            // en
+            if( $lang === 'en' ){
                 $templateImage = Storage::url( 'img/exa_eng1.png' );
             }
         }
@@ -176,13 +176,13 @@ class PDFController extends Controller
 
         switch( $lang ){
             case 'ja':
-                $view = view( 'japanese.upload' );
+                $view = view( 'ja.upload' );
                 break;
             case 'en':
-                $view = view( 'english.upload' );
+                $view = view( 'en.upload' );
                 break;
             default:
-            $view = view( 'english.upload' );
+            $view = view( 'en.upload' );
             break;
         }
         $view->with( 'templateImage', $templateImage );
@@ -229,8 +229,8 @@ class PDFController extends Controller
             $rule['image'] = 'required|mimes:jpeg,jpg,png|image|max:4000';
         }
 
-        // English
-        if( $request->session()->get( 'lang' ) === 'english' ){
+        // en
+        if( $request->session()->get( 'lang' ) === 'en' ){
             $rule = [
                 'message_to'     => 'max:22',
                 'message_content'=> 'max:112',
@@ -289,29 +289,38 @@ class PDFController extends Controller
         // set dammy id for preview ( won't be used )
         $id = $request->session()->get( 'pro_id' );
 
-        return redirect()->route( 'preview', $id );
+        $lang = App::getLocale();
+        //return redirect()->route( 'preview', $id );
+        return redirect()->route( 'preview', ['lang' => $lang, 'id' => $id] );
+        //return redirect( 'home/siberianhusky/projects/postcard/resources/views/'.$lnag.'/preview' );
     }
 
-    public function preview( Request $request, $id )
+    public function preview( Request $request, $lang, $id )
     {
+        // card type
+        $cardType = $request->session()->get( 'cardType' );
+        // if( $cardType === 'flower' ){
+        // }
+        
         // customer : get a main image and message detail from session
         if( !empty( $request->session()->get( 'card_info.input' ) ) ){
             $image = $request->session()->get( 'card_info.input.image' );
             $message_to = $request->session()->get( 'card_info.input.message_to' );
             $message_content = $request->session()->get( 'card_info.input.message_content' );
             $message_from = $request->session()->get( 'card_info.input.message_from' );
-            $view = view( 'japanese.preview_flower2' );  
+            $view = view( 'en.preview_flower2' );  
+//var_dump(App::getLocale());exit;
             if( App::getLocale() ){
                 $lang = App::getLocale();
                 switch( $lang ){
                     case 'ja':
-                        $view = view( 'japanese.preview_flower2' );
+                        $view = view( 'ja.preview_flower2' );
                         break;
                     case 'en':
-                        $view = view( 'english.preview_flower2' );
+                        $view = view( 'en.preview_flower2' );
                         break;
                     default:
-                    $view = view( 'english.preview_flower2' );
+                    $view = view( 'en.preview_flower2' );
                     break;
                 }
             }                    
@@ -322,7 +331,7 @@ class PDFController extends Controller
             $message_to      = $message_card->message_to;
             $message_content = $message_card->message_content;
             $message_from    = $message_card->message_from;
-            $view = view( 'japanese.preview_flower2' );
+            $view = view( 'ja.preview_flower2' );
         }
 
         $url_img = Storage::url( 'img/previews/'.$image );
@@ -346,7 +355,7 @@ class PDFController extends Controller
             $message_content_1 = $message_content;
         }
 
-        // English
+        // en
         if( $lang === 'en' ){
             // 4 rows
             if( 145 > $num && $num > 108 ){
@@ -455,8 +464,8 @@ class PDFController extends Controller
 
         $message_card = Message_card::find( $id );
 
-        // get current data information from session
-        $data = $request->session()->get( 'card_info.input' );        
+                // get current data information from session
+                //$data = $request->session()->get( 'card_info.input' );        
         $img_name        = $message_card->image;
         $img_path        = storage_path( 'app/public/img/uploads/'.$img_name );
         $message_to      = $message_card->message_to;
@@ -527,7 +536,7 @@ class PDFController extends Controller
             $y = $image_frame_y / 2 - $final_H_mm / 2; // flowerでは39.65mm がimage枠の高さの中心
             $pdf->Image( $img, $x, $y, '', 60 );
 
-            /*add text with Japanese version*/ 
+            /*add text with ja version*/ 
             $pdf->SetFont('sjis', '', '18');
             $pdf->SetTextColor( 46, 23, 99 );
             // ward wrap
@@ -555,7 +564,7 @@ class PDFController extends Controller
            
         }
 
-        $pdf->Output( 'I', $name );exit; // when want to see on the screen directly        
+        $pdf->Output( 'I', $name ); // when want to see on the screen directly        
         //$pdf->Output('F', storage_path( 'app/public/pdf/'.$name ) );
 
         // save it in the database
@@ -570,16 +579,16 @@ class PDFController extends Controller
 
     public function downloadPdf( $lang, $id )
     {
-        $view = view( 'japanese.download_pdf' );
+        $view = view( 'ja.download_pdf' );
         switch( $lang ){
             case 'ja':
-                $view = view( 'japanese.download_pdf' );
+                $view = view( 'ja.download_pdf' );
                 break;
             case 'en':
-                $view = view( 'english.download_pdf' );
+                $view = view( 'en.download_pdf' );
                 break;
             default:
-            $view = view( 'english.download_pdf' );
+            $view = view( 'en.download_pdf' );
             break;
         }
         $view->with( 'id', $id );

@@ -13,16 +13,16 @@ return [
     // 'create_pdf' => 'Create PDF',
     // 'download_pdf' => 'Download PDF',
     // 'get_started' => 'Let\'s get started!',
-    'select_template' => 'Select a template then enter \'next\'.',
+    'select_template' => 'Select a template then enter next button below.',
     'message_current_image' => 'Current uploaded image',
     'message_to' => 'Dear - up to 22 letters -',
     'message_content' => 'Message - up to 112 letters -',
     'message_from' => 'From - up to 22 letters -',
-    'confirm_createpdf' => 'Once you create PDF, you wouldn\'t be able to change it.</br>Are you sure to create PDF?',
+    'confirm_createpdf' => 'Once you create PDF, you wouldn\'t be able to change it. Are you sure to create PDF?',
     'success_createpdf' => 'Create PDF Successfully!',
-    'thankyou' => 'Please download by pushing \'download\' button below!</br>
+    'thankyou' => 'Please download by pushing download button below!
             Thank you so much for using this application!</br>
-            Please feel free to contact this email address to ask something.</br>',
+            Please feel free to contact this email address to ask something.',
     'button_next' => 'next',
     'button_back' => 'back',
     'button_createPDF' => 'Create PDF',
