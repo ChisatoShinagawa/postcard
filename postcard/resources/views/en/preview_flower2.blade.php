@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     </head>    
-    <body style="margin: 0px; background: #f4e2c1; height: 100%; color: #777571;">
+    <body style="margin: 0px; background: rgb(253, 242, 233); height: 100%; color: #777571;">
         <div class="mt-3">
             <p style="color: #777571; text-align: center; font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Preview</p>
         </div>
@@ -95,8 +95,8 @@
         <div class="mt-5 pb-5" style="text-align: center">
             <div class="mt-5 mr-3" style="color: #777571;">{{ __( 'lang.confirm_createpdf' ) }}</div>
             <div class="mt-5 ml-3">
-                <a href="{{ route( 'upload' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' )}}</a>
-                <a href="{{ route( 'register_proc' ) }}" class="btn btn-outline-secondary btn-md ml-3">{{ __( 'lang.button_back' ) }}</a>
+                <a href="{{ route( 'upload', 'en' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' )}}</a>
+                <a href="{{ route( 'register_proc', 'en' ) }}" class="btn btn-outline-secondary btn-md ml-3">{{ __( 'lang.button_next' ) }}</a>
             </div>
         </div>
     </body>

@@ -5,7 +5,7 @@
         <p class="mb-5 pt-5" style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Card Type</p>
         <p>お好きなテンプレートをお選びの上、下記のnextボタンを押してください。</p>
     </div>
-    <form action="{{ route( 'upload' ) }}" method="post">
+    <form action="{{ route( 'upload', 'ja' ) }}" method="post">
     @csrf
         <div class="row">        
             <div class="col-md-6 my-2">
@@ -26,7 +26,7 @@
             </div>       
         </div>
         <div class="my-5" style="text-align:center;">
-            <button type="submit" class="btn btn-outline-secondary btn-md">next</button>
+            <button type="submit" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_next' ) }}</button>
         </div> 
     </form>
 </div>

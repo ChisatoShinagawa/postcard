@@ -67,15 +67,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Privacy Policy</a>
           </li>
-          <li class="nav-item dropdown rightli" style="float:right">
+          <li class="nav-item dropdown" style="float:right">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Language
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/en">English</a>
-              <a class="dropdown-item" href="/ja">Japanese</a>
-              {{--<div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>--}}
+              <a class="dropdown-item" href="{{ route( $current_route_name, 'en' ) }}">English</a>
+              <a class="dropdown-item" href="{{ route( $current_route_name, 'ja' ) }}">Japanese</a>
             </div>
           </li>
         </ul>
