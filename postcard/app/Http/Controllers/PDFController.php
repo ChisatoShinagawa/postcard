@@ -28,31 +28,21 @@ class PDFController extends Controller
 {
     public function welcome_message_card( Request $request, $lang )
     {
-        $view = view( 'en.welcome_message_card' );//var_dump( App::getLocale());exit;
-        // if( App::getLocale() ){
-        //     $lang = App::getLocale();
-            switch( $lang ){
-                case 'ja':
-                    $view = view( 'ja.welcome_message_card' );
-                    break;
-                case 'en':
-                    $view = view( 'en.welcome_message_card' );
-                    break;
-                default:
-                    $view = view( 'en.welcome_message_card' );
-                    break;
-            }
-        // }
+        $view = view( 'en.welcome_message_card' );
+        switch( $lang ){
+            case 'ja':
+                $view = view( 'ja.welcome_message_card' );
+                break;
+            case 'en':
+                $view = view( 'en.welcome_message_card' );
+                break;
+            default:
+                $view = view( 'en.welcome_message_card' );
+                break;
+        }
         $view->with( 'current_route_name', Route::currentRouteName() );
         return $view;
     }
-
-    // public function en( Request $request )
-    // {
-    //     $request->session()->put( 'lang', 'en' );
-    //     $view = view( 'en.welcome_message_card' );
-    //     return $view;
-    // }
 
     public function entry_orderid()
     {
@@ -121,7 +111,6 @@ class PDFController extends Controller
             $request->session()->put( 'pro_id', $pro_id );
             $request->session()->put( 'order_id', $order_id );
         }
-
         switch( $lang ){
             case 'ja':
                 $view = view( 'ja.select_card_type' );
@@ -144,7 +133,7 @@ class PDFController extends Controller
         $data = [];
         $original_image = null;
         $form = [];
-//var_dump(App::getLocale());exit;
+
         // save card type if it's first visit
         if( !empty( $request->input( 'cardType' ) ) ){
             $request->session()->put( 'cardType', $request->input( 'cardType' ) );
@@ -201,7 +190,7 @@ class PDFController extends Controller
         ];
     }
 
-    public function uploadProc( Request $request )
+    public function uploadProc( Request $request, $lang )
     {
         $file = '';
         $key = '';
@@ -289,10 +278,8 @@ class PDFController extends Controller
         // set dammy id for preview ( won't be used )
         $id = $request->session()->get( 'pro_id' );
 
-        $lang = App::getLocale();
-        //return redirect()->route( 'preview', $id );
+        //$lang = App::getLocale();
         return redirect()->route( 'preview', ['lang' => $lang, 'id' => $id] );
-        //return redirect( 'home/siberianhusky/projects/postcard/resources/views/'.$lnag.'/preview' );
     }
 
     public function preview( Request $request, $lang, $id )
@@ -309,7 +296,7 @@ class PDFController extends Controller
             $message_content = $request->session()->get( 'card_info.input.message_content' );
             $message_from = $request->session()->get( 'card_info.input.message_from' );
             $view = view( 'en.preview_flower2' );  
-//var_dump(App::getLocale());exit;
+
             if( App::getLocale() ){
                 $lang = App::getLocale();
                 switch( $lang ){
@@ -395,17 +382,11 @@ class PDFController extends Controller
         return $view;
     }
 
-    public function registerProc( Request $request )
+    public function registerProc( Request $request, $lang )
     {
-        //$message_card_info = Message_card::find( $id );
-        //$message_card_info = Message_card::where( 'order_id', $request->session->get( 'order_id' ) );
-        //var_dump( $message_card_info);exit;
-
-        // put all information into the Database
-        //$message_card_info = new Message_card;
         $data = [];
         $message_card = '';
-//var_dump($request->session()->get( 'order_id' ));exit;
+
         $data = $request->session()->get( 'card_info.input' );
         if( !$data ){
             return redirect()->route( 'entry_orderid' );
@@ -421,8 +402,8 @@ class PDFController extends Controller
         // get ID on which just created in messege_card
         $id = $message_card->id;
         
-        // PDF作成へ
-        return redirect()->route( 'create_pdf', $id );        
+        // go to create PDF
+        return redirect()->route( 'create_pdf', ['lang' => $lang, 'id' => $id] );        
     }
 
     protected function getDpi( $filename )
@@ -451,7 +432,7 @@ class PDFController extends Controller
         } )->save( $destinationPath.$filename );
     }
 
-    public function createPdf( Request $request, $id )
+    public function createPdf( Request $request, $lang, $id )
     {
         $data = [];
         $img_name        = '';
@@ -565,7 +546,7 @@ class PDFController extends Controller
         }
 
         $pdf->Output( 'I', $name ); // when want to see on the screen directly        
-        //$pdf->Output('F', storage_path( 'app/public/pdf/'.$name ) );
+        //$pdf->Output('F', storage_path( 'app/public/pdf/'.$name ) ); // when want to use header to download
 
         // save it in the database
         $message_card->pdf = $name;
@@ -592,7 +573,7 @@ class PDFController extends Controller
             break;
         }
         $view->with( 'id', $id );
-        $view->with( 'current_route_name', Route::currentRouteName() );
+        $view->with( 'current_route_name', 'download_pdf' );
         return $view;
     }
 

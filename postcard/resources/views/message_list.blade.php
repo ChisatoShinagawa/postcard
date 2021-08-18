@@ -33,7 +33,7 @@
                     <td><input type="checkbox" name="download[]" value="{{ $order->message_card_id }}"></td>
                     <td>
                         <a href="{{ route( 'single_download_proc', intval($order->message_card_id) ) }}" class="btn btn-info">download</a>
-                        <a href="{{ route( 'preview', intval($order->message_card_id) ) }}" class="btn btn-success ml-1" target="_blank">preview</a>                        
+                        <a href="{{ route( 'preview', ['lang'=>'ja', 'id' => intval($order->message_card_id)] ) }}" class="btn btn-success ml-1" target="_blank">preview</a>                        
                     </td>  
                 </tr>
                 @endforeach

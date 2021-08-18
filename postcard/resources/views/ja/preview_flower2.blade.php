@@ -96,7 +96,7 @@
             <div class="mt-5 mr-3" style="color: #777571;">一度確定すると変更できません。</br>こちらの内容でお作りしてよろしいですか？</div>
             <div class="mt-5 ml-3">
                 <a href="{{ route( 'upload', 'ja' ) }}" class="btn btn-outline-secondary btn-md">{{ __( 'lang.button_back' ) }}</a>
-                <a href="{{ route( 'register_proc' ) }}" class="btn btn-outline-secondary btn-md ml-3">ok</a>
+                <a href="{{ route( 'register_proc', 'ja' ) }}" class="btn btn-outline-secondary btn-md ml-3">ok</a>
             </div>
         </div>
     </body>

@@ -21,25 +21,10 @@ use App\Http\Middleware\LocalizationMiddleware;
 
 Route::get('/', function(){
     $view = view('en.welcome_message_card');
-    $view->with( 'current_route_name', Route::currentRouteName() );
+    $view->with( 'current_route_name', 'welcome_message_card' );
     return $view; 
 });
-
-
-
-Route::any('/entry_orderid', 'PDFController@entry_orderid')->name('entry_orderid');
-Route::post('/check_orderid', 'PDFController@check_orderid')->name('check_orderid');
-
-
-//Route::any('/resize_preview_image', 'PDFController@resizeAndMakePreviewImage' )->name('resize_and_make_preview_image');
-Route::any('/register_proc', 'PDFController@registerProc')->name('register_proc');
-
-Route::any('/createpdf/{id}', 'PDFController@createPdf')->name('create_pdf');
-Route::any('/resize', 'PDFController@resizeImage' )->name('resize');
-
-Route::any('/complete', 'PDFController@complete' )->name('complete');
-
-// 誰でもダウンロードできるようにauthから外す
+// out of auth so that indivisual user can download pdf
 Route::any('/download_proc/{id}', 'HomeController@singleDownloadProc')->name('single_download_proc');
 
 Route::group( ['middleware' => 'auth'],function(){
@@ -52,20 +37,20 @@ Route::group( ['middleware' => 'auth'],function(){
     Route::any('/message_list', 'HomeController@showMessageList')->name('message_list');
     Route::post('/multi_download_proc', 'HomeController@multiDawnloadProc')->name('multi_download_proc');
 } );
-
-Route::get('/sys_img/{id}', 'ImageController@get');
-Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
-
 Route::group([ 'prefix' => '/{lang}/', 'middleware' => 'localization' ], function(){
     Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
     Route::any( '/select_card_type', 'PDFController@selectCardType' )->name( 'select_card_type' );
     Route::any('/upload', 'PDFController@upload')->name('upload');
     Route::post('/upload_proc', 'PDFController@uploadProc')->name('upload_proc');
     Route::any('/preview/{id}', 'PDFController@preview')->name('preview');
+    Route::any('/register_proc', 'PDFController@registerProc')->name('register_proc');
+    Route::any('/createpdf/{id}', 'PDFController@createPdf')->name('create_pdf');
+    Route::any('/resize', 'PDFController@resizeImage' )->name('resize');
     Route::any('/download_pdf/{id}', 'PDFController@downloadPdf' )->name('download_pdf');
 });
+Route::any('/entry_orderid', 'PDFController@entry_orderid')->name('entry_orderid'); // corperate use
+Route::post('/check_orderid', 'PDFController@check_orderid')->name('check_orderid'); // corperate use
+Route::any('/complete', 'PDFController@complete' )->name('complete'); // corperate use
 
-//Route::any('/', 'PDFController@welcome_message_card')->name('welcome_message_card');
+Route::get('/sys_img/{id}', 'ImageController@get'); // haven't done yet! Do it to protect img
 
-//Route::get('/{lang}', 'LocalizationController@index')->name('localization')->middleware( 'web' ); // すべてここで吸収されてしまう? redirect2回
-//Route::get('/ja', 'LocalizationController@index');
